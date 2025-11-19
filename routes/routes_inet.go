@@ -9,19 +9,26 @@ import (
 
 func InetRoutes(app *fiber.App) {
 
-	app.Use(basicauth.New(basicauth.Config{
-		Users: map[string]string{
-			"john":  "doe",
-			"admin": "123456",
-		},
-	}))
-
-	// /api/v1/
 	api := app.Group("/api")
 
 	v1 := api.Group("/v1")
 	v2 := api.Group("/v2")
 	v3 := api.Group("/v3")
+	profile := v1.Group("/profile")
+
+	profile.Get("/", c.GetUserProfiles)
+	profile.Get("/json", c.GetUserProfileJson)
+	profile.Get("/filter", c.GetUserProfileSearch)
+
+	app.Use(basicauth.New(basicauth.Config{
+		Users: map[string]string{
+			"testgo": "23012023",
+		},
+	}))
+	// /api/v1/
+	profile.Post("/", c.AddUserProfile)
+	profile.Put("/:id", c.UpdateUserProfile)
+	profile.Delete("/:id", c.RemoveUserProfile)
 
 	v1.Get("/", c.HelloTest)
 	v2.Get("/", c.HelloTestv2)
@@ -52,4 +59,6 @@ func InetRoutes(app *fiber.App) {
 	company.Post("/", c.AddCompany)
 	company.Put("/:id", c.UpdateCompany)
 	company.Delete("/:id", c.RemoveCompany)
+
+	//CRUD user profile
 }
