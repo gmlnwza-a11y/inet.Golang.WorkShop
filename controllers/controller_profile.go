@@ -16,9 +16,7 @@ func GetUserProfiles(c *fiber.Ctx) error {
 	return c.Status(200).JSON(userprofile)
 }
 
-// this is company controller
 func AddUserProfile(c *fiber.Ctx) error {
-	//twst3
 	db := database.DBConn
 	var userprofile m.UserProfile
 

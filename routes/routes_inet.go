@@ -10,10 +10,10 @@ import (
 func InetRoutes(app *fiber.App) {
 
 	api := app.Group("/api")
-
 	v1 := api.Group("/v1")
 	v2 := api.Group("/v2")
 	v3 := api.Group("/v3")
+
 	profile := v1.Group("/profile")
 
 	profile.Get("/", c.GetUserProfiles)
